@@ -10,4 +10,5 @@
     <string name="name">Name ?</string>
     <string name="amount">Amount ?</string>
     <string name="select_type">Select type</string>
+    <string name="to_euro">%1$s €</string>
 </resources>

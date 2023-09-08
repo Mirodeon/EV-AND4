@@ -6,14 +6,14 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import java.util.Date
+import java.time.LocalDate
 
 @Entity
 data class Expense(
     @PrimaryKey(autoGenerate = true)
     val expenseId: Long = 0,
     @ColumnInfo(name = "date")
-    val date: Date,
+    val date: LocalDate,
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "value")

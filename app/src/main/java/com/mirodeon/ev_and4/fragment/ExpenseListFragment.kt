@@ -21,7 +21,7 @@ class ExpenseListFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private val viewModel: ExpenseViewModel by activityViewModels {
         ExpenseViewModelFactory(
-            (activity?.application as MyApp).database.expenseDao()
+            MyApp.instance.database.expenseDao()
         )
     }
 

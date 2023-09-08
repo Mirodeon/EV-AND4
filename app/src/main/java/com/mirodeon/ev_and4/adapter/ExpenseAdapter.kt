@@ -1,13 +1,19 @@
 package com.mirodeon.ev_and4.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.mirodeon.ev_and4.R
+import com.mirodeon.ev_and4.app.MyApp
 import com.mirodeon.ev_and4.databinding.ExpenseItemBinding
 import com.mirodeon.ev_and4.entity.ExpenseWithType
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class ExpenseAdapter(
     private val onItemClicked: (ExpenseWithType) -> Unit
@@ -46,6 +52,7 @@ class ExpenseAdapter(
         return viewHolder
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -53,9 +60,14 @@ class ExpenseAdapter(
     class ExpenseViewHolder(
         private var binding: ExpenseItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         @SuppressLint("SimpleDateFormat")
         fun bind(expense: ExpenseWithType) {
-
+            binding.typeItemText.text = expense.type.name
+            binding.nameItemText.text = expense.expense.name
+            binding.amountItemText.text =
+                MyApp.instance.getString(R.string.to_euro, expense.expense.value.toString())
+            binding.dateItemText.text = expense.expense.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
         }
     }
 }

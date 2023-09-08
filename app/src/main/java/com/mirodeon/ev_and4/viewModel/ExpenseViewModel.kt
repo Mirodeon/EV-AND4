@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mirodeon.ev_and4.dao.ExpenseDao
 import com.mirodeon.ev_and4.entity.Expense
+import com.mirodeon.ev_and4.entity.ExpenseType
 import com.mirodeon.ev_and4.entity.ExpenseWithType
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +13,7 @@ class ExpenseViewModel(private val expenseDao: ExpenseDao) : ViewModel() {
     fun fullExpense(): Flow<List<ExpenseWithType>> = expenseDao.getAll()
 
     fun insertExpense(vararg expenses: Expense) = expenseDao.insertAll(*expenses)
+
 }
 
 class ExpenseViewModelFactory(
