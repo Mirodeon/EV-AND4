@@ -67,7 +67,8 @@ class ExpenseAdapter(
             binding.nameItemText.text = expense.expense.name
             binding.amountItemText.text =
                 MyApp.instance.getString(R.string.to_euro, expense.expense.value.toString())
-            binding.dateItemText.text = expense.expense.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+            binding.dateItemText.text =
+                expense.expense.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
         }
     }
 }

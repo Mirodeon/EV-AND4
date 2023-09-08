@@ -1,12 +1,14 @@
 package com.mirodeon.ev_and4.fragment
 
 import android.app.AlertDialog
+import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import com.mirodeon.ev_and4.R
@@ -31,6 +33,8 @@ class AddExpenseFragment : Fragment() {
     }
     private val expenseTypes = mutableListOf<ExpenseType>()
     private var selectedType: ExpenseType? = null
+    @RequiresApi(Build.VERSION_CODES.O)
+    private var selectedDate: LocalDate = LocalDate.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,7 @@ class AddExpenseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addActionToolbar()
         addBtnType()
+        setPicker()
     }
 
     override fun onDestroy() {
@@ -63,21 +68,20 @@ class AddExpenseFragment : Fragment() {
             val name = binding?.nameText?.text.toString()
             val amount = binding?.amountText?.text.toString().toFloat()
             val typeExpenseId = selectedType?.typeId
-            val date = LocalDate.parse("2018-12-02")
-            if (name.isNotEmpty() && name.isNotBlank() && !amount.isNaN() && typeExpenseId != null && date != null) {
+            if (name.isNotEmpty() && name.isNotBlank() && !amount.isNaN() && typeExpenseId != null) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    typeExpenseId?.let { typeId ->
-                        viewModel.insertExpense(
-                            Expense(
-                                date = date,
-                                name = name,
-                                value = amount,
-                                typeExpenseId = typeId
-                            )
+                    viewModel.insertExpense(
+                        Expense(
+                            date = selectedDate,
+                            name = name,
+                            value = amount,
+                            typeExpenseId = typeExpenseId
                         )
-                    }
+                    )
                 }
                 main.navController.popBackStack(R.id.expenseListFragment, false)
+            } else {
+                Toast.makeText(activity, "Invalid Data", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -106,6 +110,19 @@ class AddExpenseFragment : Fragment() {
 
             val mDialog = mBuilder.create()
             mDialog.show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setPicker() {
+        val today = Calendar.getInstance()
+        binding?.datePicker?.init(
+            today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+
+        ) { view, year, month, day ->
+            val str = String.format("%d-%02d-%02d", year, month + 1, day)
+            selectedDate = LocalDate.parse(str)
         }
     }
 }
