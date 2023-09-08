@@ -64,7 +64,7 @@ class AddExpenseFragment : Fragment() {
             val amount = binding?.amountText?.text.toString().toFloat()
             val typeExpenseId = selectedType?.typeId
             val date = LocalDate.parse("2018-12-02")
-            if (name.isNotEmpty() && name.isNotBlank() && !amount.isNaN() && typeExpenseId != null && date != null)
+            if (name.isNotEmpty() && name.isNotBlank() && !amount.isNaN() && typeExpenseId != null && date != null) {
                 CoroutineScope(Dispatchers.IO).launch {
                     typeExpenseId?.let { typeId ->
                         viewModel.insertExpense(
@@ -77,7 +77,8 @@ class AddExpenseFragment : Fragment() {
                         )
                     }
                 }
-            main.navController.popBackStack(R.id.expenseListFragment, false)
+                main.navController.popBackStack(R.id.expenseListFragment, false)
+            }
         }
     }
 
