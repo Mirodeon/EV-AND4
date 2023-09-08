@@ -66,9 +66,9 @@ class AddExpenseFragment : Fragment() {
         val main = (activity as MainActivity)
         main.binding?.toolbarMenu?.imageSaveAction?.setOnClickListener {
             val name = binding?.nameText?.text.toString()
-            val amount = binding?.amountText?.text.toString().toFloat()
+            val amount = binding?.amountText?.text.toString().toFloatOrNull()
             val typeExpenseId = selectedType?.typeId
-            if (name.isNotEmpty() && name.isNotBlank() && !amount.isNaN() && typeExpenseId != null) {
+            if (name.isNotEmpty() && name.isNotBlank() && amount != null && typeExpenseId != null) {
                 CoroutineScope(Dispatchers.IO).launch {
                     viewModel.insertExpense(
                         Expense(

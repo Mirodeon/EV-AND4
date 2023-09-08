@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun visibilityActionBarBtn(id: Int) {
         binding?.toolbarMenu?.imageAddAction?.visibility =
-            if (id == R.id.expenseListFragment) View.VISIBLE else View.INVISIBLE
+            if (id == R.id.expenseListFragment) View.VISIBLE else View.GONE
         binding?.toolbarMenu?.imageSaveAction?.visibility =
-            if (id == R.id.addExpenseFragment) View.VISIBLE else View.INVISIBLE
+            if (id == R.id.addExpenseFragment) View.VISIBLE else View.GONE
     }
 }
