@@ -1,7 +1,6 @@
 package com.mirodeon.ev_and4.db
 
 import android.content.Context
-import androidx.lifecycle.coroutineScope
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,7 +12,6 @@ import com.mirodeon.ev_and4.entity.Expense
 import com.mirodeon.ev_and4.entity.ExpenseType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 

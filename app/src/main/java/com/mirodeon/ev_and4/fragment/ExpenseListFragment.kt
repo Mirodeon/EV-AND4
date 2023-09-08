@@ -40,7 +40,7 @@ class ExpenseListFragment : Fragment() {
         val expenseAdapter = ExpenseAdapter {}
         recyclerView?.adapter = expenseAdapter
         lifecycle.coroutineScope.launch {
-            viewModel.fullExpense().collect() {
+            viewModel.fullExpense().collect {
                 expenseAdapter.submitList(it)
             }
         }

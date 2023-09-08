@@ -1,6 +1,5 @@
 package com.mirodeon.ev_and4.adapter
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -61,7 +60,6 @@ class ExpenseAdapter(
         private var binding: ExpenseItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
-        @SuppressLint("SimpleDateFormat")
         fun bind(expense: ExpenseWithType) {
             binding.typeItemText.text = expense.type.name
             binding.nameItemText.text = expense.expense.name
